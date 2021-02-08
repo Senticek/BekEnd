@@ -19,3 +19,5 @@ di:
 
 services:
 	- App\Router\RouterFactory::createRouter
+	- App\Model\Database
+	- App\Model\Authenticator
