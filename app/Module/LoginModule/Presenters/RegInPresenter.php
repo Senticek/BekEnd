@@ -1,12 +1,12 @@
 <?php
-namespace App\Module\LoginModule\Presenters;
+namespace App,Presenters;
 
 
 use Nette;
 use Nette\Application\UI\Form;
 
 
-class RegInPresenter extends Nette\Application\UI\Presenter
+class RegPresenter extends Nette\Application\UI\Presenter
 {
 
 }

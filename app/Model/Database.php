@@ -3,7 +3,7 @@ namespace App\Model;
 
 use Nette;
 
-class ArticleManager
+class Database
 {
 	use Nette\SmartObject;
 

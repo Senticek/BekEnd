@@ -3,10 +3,15 @@ namespace App\Presenters;
 
 use Nette;
 use Nette\Application\UI\Form;
-
+use App\Model\Authentication;
 
 class SignPresenter extends Nette\Application\UI\Presenter
 {
+    private Authentication $authenticator;
+   public function __construct(Authentication $authenticator)
+	{
+		$this->authenticator = $authenticator;
+	}
 	protected function createComponentSignInForm(): Form
 	{
 		$form = new Form;
@@ -18,17 +23,24 @@ class SignPresenter extends Nette\Application\UI\Presenter
 
 		$form->addSubmit('send', 'Přihlásit');
 
+
 		$form->onSuccess[] = [$this, 'signInFormSucceeded'];
 		return $form;
 	}
 	public function signInFormSucceeded(Form $form, \stdClass $values): void
 	{
+		
 		try {
-			$this->getUser()->login($values->username, $values->password);
+           // $this->getUser()->login($values->username, $values->password);
+           
+		 
+		   $this->authenticator->authenticate($values->username, $values->password);
+	
 			$this->redirect('Homepage:');
 	
 		} catch (Nette\Security\AuthenticationException $e) {
-			$form->addError('Nesprávné přihlašovací jméno nebo heslo.');
+			$form->addError("Nesprávné přihlašovací jméno nebo heslo.{$row->password}");
+        
 		}
 	}
 	public function actionOut(): void
