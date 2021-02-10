@@ -41,5 +41,11 @@ class Authentication implements Nette\Security\Authenticator
 		
 		);
 	}
+
+	public function Hashovat(string $password){
+		return $this->passwords->hash($password);
+
+	}
+
 }
 ?>

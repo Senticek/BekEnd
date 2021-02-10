@@ -7,11 +7,17 @@ use Nette\Application\UI\Form;
 use Nette\Utils\Html;
 use Tracy\Debugger;
 use Tracy\Dumper;
+use Nette\Security\Passwords;
+use Nette\Database\Explorer;
 
 class RegPresenter extends Nette\Application\UI\Presenter
 {
+    private 
+
+
     protected function createComponentRegInForm(): Form
 	{
+        $form = new form;
     $form->addText('username', 'Your username:')
 	->setRequired('Enter your username');
 
@@ -27,7 +33,31 @@ class RegPresenter extends Nette\Application\UI\Presenter
     $form->addEmail('email', 'email')
 	->setRequired('enter email')
 	->addRule($form::EMAIL);
+
+    $form->addSubmit('send', 'Přihlásit');
+
+
+    return $form;
     }
+
+    public function signInFormSucceeded(Form $form, \stdClass $values): void
+	{
+
+        
+		
+		try {
+           // $this->getUser()->login($values->username, $values->password);
+           
+		 
+		   $this->authenticator->authenticate($values->username, $values->password);
+	
+			$this->redirect('Homepage:');
+	
+		} catch (Nette\Security\AuthenticationException $e) {
+			$form->addError("Nesprávné přihlašovací jméno nebo heslo.{$row->password}");
+        
+		}
+	}
 
 }
 ?>
