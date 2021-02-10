@@ -20,17 +20,18 @@ class Authentication implements Nette\Security\Authenticator
 
 	public function authenticate(string $username, string $password): SimpleIdentity
 	{
+		
 
 		$row = $this->database->table('users')
 			->where('username', $username)
 			->fetch();
-		$pass =  $this->passwords->hash($row->password); // Zahashuje heslo
+	
 		if (!$row) {
 			throw new Nette\Security\AuthenticationException('');
 		}
 
-		if (!$this->passwords->verify($password, $pass)) {
-			throw new Nette\Security\AuthenticationException("Invalid password.{$password}");
+		if (!$this->passwords->verify($password, $row->password)) {
+			throw new Nette\Security\AuthenticationException("Invalid password");
 		}
 
 		return new SimpleIdentity(

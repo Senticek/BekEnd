@@ -10,6 +10,7 @@ class Database
 
 	private Nette\Database\Explorer $database;
 	private $passwords;
+	private Authentication $authenticator;
 	
 	
 
@@ -18,20 +19,26 @@ class Database
 	
 	private $email;
 	
-	public function __construct(Nette\Database\Explorer $database,Nette\Security\Passwords $passwords)
+	public function __construct(Nette\Database\Explorer $database,Nette\Security\Passwords $passwords,Authentication $authenticator)
 	{
 		$this->database = $database;
 		$this->passwords = $passwords;
+		$this->authenticator = $authenticator;
 	}
 
-	public function databaseInsert( \stdClass $values): void
+	public function databaseInsert( \stdClass $values)
 	{
-
+		$row="";
 		$username = $values->username;
 		$password = $this->passwords->hash($values->password); 
 		$email = $values->email;
 
 		
+
+		if(!$row = $this->database->table('users')->where('username',$username)->fetch() )
+		{
+			$row="";
+		if(!$row = $this->database->table('users')->where('email',$email)->fetch()){
 	
 		$this->database->table('users')->insert([
 			
@@ -40,8 +47,15 @@ class Database
 			'password' => $password,
 			'role' => 'uzivatel',
 		]);
+		$this->authenticator->authenticate($username, $values->password);
+		return "nic";
+		}else{
+			return "email";
+		}
 	
-	return;
+		}else{return "Jmeno";}
+	
+		
 		
 	}
 

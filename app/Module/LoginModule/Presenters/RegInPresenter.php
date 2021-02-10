@@ -14,6 +14,7 @@ use App\Model\Database;
 class RegPresenter extends Nette\Application\UI\Presenter
 { 
     private Database $vlozit;
+   
 
 
     public function __construct(Database $vlozit)
@@ -23,6 +24,7 @@ class RegPresenter extends Nette\Application\UI\Presenter
 
     protected function createComponentRegInForm(): Form
 	{
+        $values="";
         $form = new form;
     $form->addText('username', 'Your username:')
 	->setRequired('Enter your username');
@@ -40,18 +42,34 @@ class RegPresenter extends Nette\Application\UI\Presenter
 	->setRequired('enter email')
 	->addRule($form::EMAIL);
 
-    $form->addSubmit('send', 'Přihlásit');
+    $form->addSubmit('send', 'Registrovat');
     $form->onSuccess[] = [$this, 'signInFormSucceeded'];
 
 
     return $form;
     }
 
-    public function signInFormSucceeded(\stdClass $values): void
+    public function signInFormSucceeded(Form $form,\stdClass $values): void
 	{
-
+        $zprava="";
         
-		$this->vlozit->databaseInsert($values);
+		$zprava = $this->vlozit->databaseInsert($values);
+        sleep(1);
+        if($zprava =="email")
+        {
+
+            $form->addError("email je jiz pouzivan");
+        }else if($zprava == "Jmeno")
+        {
+
+            $form->addError("Jmeno je obsazeno");
+        }else if($zprava == "nic"){
+       
+            $this->redirect('Homepage:');
+
+
+        }
+      
 	}
 
 }
