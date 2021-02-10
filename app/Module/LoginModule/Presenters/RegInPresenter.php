@@ -9,11 +9,17 @@ use Tracy\Debugger;
 use Tracy\Dumper;
 use Nette\Security\Passwords;
 use Nette\Database\Explorer;
+use App\Model\Database;
 
 class RegPresenter extends Nette\Application\UI\Presenter
-{
-    private 
+{ 
+    private Database $vlozit;
 
+
+    public function __construct(Database $vlozit)
+	{
+		$this->vlozit = $vlozit;
+	}
 
     protected function createComponentRegInForm(): Form
 	{
@@ -35,28 +41,17 @@ class RegPresenter extends Nette\Application\UI\Presenter
 	->addRule($form::EMAIL);
 
     $form->addSubmit('send', 'Přihlásit');
+    $form->onSuccess[] = [$this, 'signInFormSucceeded'];
 
 
     return $form;
     }
 
-    public function signInFormSucceeded(Form $form, \stdClass $values): void
+    public function signInFormSucceeded(\stdClass $values): void
 	{
 
         
-		
-		try {
-           // $this->getUser()->login($values->username, $values->password);
-           
-		 
-		   $this->authenticator->authenticate($values->username, $values->password);
-	
-			$this->redirect('Homepage:');
-	
-		} catch (Nette\Security\AuthenticationException $e) {
-			$form->addError("Nesprávné přihlašovací jméno nebo heslo.{$row->password}");
-        
-		}
+		$this->vlozit->databaseInsert($values);
 	}
 
 }
