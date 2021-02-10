@@ -18,7 +18,7 @@ class RegPresenter extends Nette\Application\UI\Presenter
 
     $form->addPassword('password', 'Choose password:')
 	->setRequired('Choose your password')
-	->addRule($form::MIN_LENGTH, 'The password is too short: it must be at least %d characters', 3);
+	->addRule($form::MIN_LENGTH, 'The password is too short: it must be at least %d characters', 5);
 
    $form->addPassword('password2', 'Reenter password:')
 	->setRequired('Reenter your password')
