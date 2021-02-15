@@ -25,6 +25,16 @@ class Database
 		$this->passwords = $passwords;
 		$this->authenticator = $authenticator;
 	}
+	public function getPublicArticles()
+	{
+		
+		return $this->database->table('popisy');
+    }
+	public function getPortfolioItems()
+	{
+		return $this->database->table('portfolia');
+    }
+	
 
 	public function databaseInsert( \stdClass $values)
 	{
@@ -48,6 +58,7 @@ class Database
 			'role' => 'uzivatel',
 		]);
 		$this->authenticator->authenticate($username, $values->password);
+	
 		return "nic";
 		}else{
 			return "email";
