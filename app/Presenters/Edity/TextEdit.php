@@ -5,7 +5,7 @@ use Nette;
 use Nette\Application\UI\Form;
 use Nette\Database\Explorer;
 
-class FormPresenter extends Nette\Application\UI\Presenter{
+class TextPresenter extends Nette\Application\UI\Presenter{
 
 	private Nette\Database\Explorer $database;
 
@@ -16,9 +16,7 @@ class FormPresenter extends Nette\Application\UI\Presenter{
     protected function createComponentPostForm(): Form
     {
         $form = new Form;
-        $form->addText('title', 'Titulek:')
-            ->setRequired();
-        $form->addTextArea('content', 'Obsah:')
+        $form->addTextArea('popisy', 'Obsah:')
             ->setRequired();
     
         $form->addSubmit('send', 'Uložit a publikovat');
@@ -28,29 +26,26 @@ class FormPresenter extends Nette\Application\UI\Presenter{
     }
     public function postFormSucceeded(Form $form, array $values): void
 {
-	/*if (!$this->getUser()->isLoggedIn()) {
-		$this->error('Pro vytvoření, nebo editování příspěvku se musíte přihlásit.');
-	}*/
+	if (!$this->getUser()->isInRole('admin')) {
+		$this->redirect(':Homepage:');
+	}
 	$postId = $this->getParameter('postId');
 
 	if ($postId) {
-		$post = $this->database->table('posts')->get($postId);
+		$post = $this->database->table('popisy')->get($postId);
 		$post->update($values);
 	} else {
-		$post = $this->database->table('posts')->insert($values);
+		$post = $this->database->table('popisy')->insert($values);
 	}
 
 	$this->flashMessage('Příspěvek byl úspěšně publikován.', 'success');
-	$this->redirect('show', $post->id);
+	$this->redirect(':Homepage:');
 }
 
 
-    public function actionEdit(int $postId): void
+    public function actionEditText(int $postId): void
 {
-	if (!$this->getUser()->isLoggedIn()) {
-		$this->redirect('Sign:in');
-	}
-	$post = $this->database->table('posts')->get($postId);
+	$post = $this->database->table('popisy')->get($postId);
 	if (!$post) {
 		$this->error('Příspěvek nebyl nalezen');
 	}

@@ -20,5 +20,6 @@ di:
 services:
 	- App\Router\RouterFactory::createRouter
 	- App\Model\Database
+	- App\Model\UserACL::create
 	authenticator: App\Model\Authentication
 	security.passwords: Nette\Security\Passwords(::PASSWORD_BCRYPT, [cost: 12])

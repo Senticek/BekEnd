@@ -87,30 +87,13 @@ use Nette\Application\UI\Form;
       
  
        $this->template->addFilter('name', [$this, 'filter']);
-       $this->template->headTitle = 'ahoj';
+    
+      
        $this->template->cssVersionSlug = $this->cssVersionSlug;
        $this->template->VERSION = self::VERSION;
        
     
   
-      
-      
-      /* $this->template->pageUrl = 'http://darknessorlight.glaser.cz';
-       $this->template->creatorName = 'Bc. Jan Glaser';
-       
-       
-       $this->template->playGameUrl = 'https://darknessorlight.herokuapp.com';
-       
-       //version of the webpage
-       $this->template->VERSION = self::VERSION;
-       
-       //***************************************************
-       $this->template->setTranslator($this->translator);
-       
-       $user = $this->getUser();
-       $this->template->homeLink = $this->link(':Homepage:');
-       
-       $this->template->currentPageTitle = $this->currentPageTitle;*/
     }
 
 

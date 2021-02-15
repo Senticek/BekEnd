@@ -4,6 +4,7 @@ use Nette;
 use Nette\Security\SimpleIdentity;
 use Nette\Database\Context;
 use Nette\Database\Explorer;
+use Nette\Security\User;
 
 class Authentication implements Nette\Security\Authenticator
 {

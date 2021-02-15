@@ -4,6 +4,7 @@ namespace App\Presenters;
 use Nette;
 use Nette\Application\UI\Form;
 use App\Model\Authentication;
+use Nette\Security\User;
 
 class SignPresenter extends Nette\Application\UI\Presenter
 {
@@ -32,9 +33,11 @@ class SignPresenter extends Nette\Application\UI\Presenter
 		
 		try {
            // $this->getUser()->login($values->username, $values->password);
-           
+        $user = $this->getUser();
+	$user->authenticator->authenticate($values->username, $values->password);
+	$user->login($values->username, $values->password);
 		 
-		   $this->authenticator->authenticate($values->username, $values->password);
+		 //  $this->authenticator->authenticate($values->username, $values->password);
 		
 			$this->redirect('Homepage:');
 	

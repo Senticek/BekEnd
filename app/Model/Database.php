@@ -34,6 +34,11 @@ class Database
 	{
 		return $this->database->table('portfolia');
     }
+	public function getAdress()
+	{
+		
+		return $this->database->table('footeradress');
+    }
 	
 
 	public function databaseInsert( \stdClass $values)

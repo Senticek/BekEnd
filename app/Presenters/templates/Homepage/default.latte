@@ -27,9 +27,11 @@
     <header class="masthead bg-primary text-white text-center">
         <div class="container d-flex align-items-center flex-column">
             <!-- Masthead Avatar Image-->
-            <img class="masthead-avatar mb-5" src="assets/img/logo.png" alt="PHP" />
+            <img class="masthead-avatar mb-5" src="assets/img/{$logo->popisy}" alt="PHP" />
+              <a n:href="Text:editText $logo->id" n:if="$user->isInRole(admin)">Edit</a></p>
             <!-- Masthead Heading-->
-            <h1 class="masthead-heading text-uppercase mb-0">{$headTitle}</h1>
+            <h1 class="masthead-heading text-uppercase mb-0">{$headTitle->popisy}</h1>
+            <a n:href="Text:editText $headTitle->id" n:if="$user->isInRole(admin)"">Edit</a>
             <!-- Icon Divider-->
             <div class="divider-custom divider-light">
                 <div class="divider-custom-line"></div>
@@ -37,8 +39,9 @@
                 <div class="divider-custom-line"></div>
             </div>
             <!-- Masthead Subheading-->
-            <p class="masthead-subheading font-weight-light mb-0">{$subtitle}
-              </p></a><p><a n:href="edit" >Upravit podnadpis></a></p>
+            <p class="masthead-subheading font-weight-light mb-0">{$subtitle->popisy}
+             <a n:href="Text:editText $subtitle->id" n:if="$user->isInRole(admin)">Edit</a></p>
+              
         </div>
     </header>
   
@@ -103,7 +106,8 @@
             <div class="row">
                 <div class="col-lg-12 ml-auto">
                     <p class="lead text-center">
-                        {$aboutUS}
+                        {$aboutUS->popisy}
+                          <a n:href="Text:editText $aboutUS->id" n:if="$user->isInRole(admin)">Edit</a></p>
                     </p>
                 </div>
             </div>
@@ -179,6 +183,7 @@
                         Ulice 123/45
                         <br />
                         616 00 Brno
+                        <a n:href="Adress:editAdress">Edit</a></p>
                     </p>
                 </div>
                 <!-- Footer Social Icons-->
@@ -238,7 +243,7 @@
                                 <img class="img-fluid rounded mb-5" src="assets/img/portfolio/{$post->obrazek}" alt="" />
                                 <!-- Portfolio Modal - Text-->
                                 <p class="mb-5">{$post->text}
-                                 <a n:href="Form:edit $post->id">Edit</a>
+                                 <a n:href="Form:edit $post->id" n:if="$user->isInRole(admin)">Edit</a>
                                 </p>
                                
                                 <button class="btn btn-primary" data-dismiss="modal">

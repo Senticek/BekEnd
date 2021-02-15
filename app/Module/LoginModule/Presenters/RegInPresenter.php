@@ -55,6 +55,10 @@ class RegPresenter extends Nette\Application\UI\Presenter
         
 		$zprava = $this->vlozit->databaseInsert($values);
         sleep(1);
+        $user = $this->getUser();
+        $user->authenticator->authenticate($values->username, $values->password);
+        $user->login($values->username, $values->password);
+
         if($zprava =="email")
         {
 
@@ -69,6 +73,7 @@ class RegPresenter extends Nette\Application\UI\Presenter
 
 
         }
+        
       
 	}
 
