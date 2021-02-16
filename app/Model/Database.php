@@ -44,6 +44,12 @@ class Database
 		
 		return $this->database->table('odkazy');
     }
+	public function getSoc()
+	{
+		
+		return $this->database->table('socialnet');
+    }
+	
 	
 
 	public function databaseInsert( \stdClass $values)

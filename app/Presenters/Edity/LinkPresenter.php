@@ -50,7 +50,7 @@ class LinkPresenter extends Nette\Application\UI\Presenter{
 }
 
 
-    public function actionEdit(int $postId): void
+    public function actionEditLink(int $postId): void
 {
 	if (!$this->getUser()->isInRole('admin')) {
 		$this->redirect('Sign:in');

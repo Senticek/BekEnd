@@ -5,7 +5,7 @@ use Nette;
 use Nette\Application\UI\Form;
 use Nette\Database\Explorer;
 
-class PscPresenter extends Nette\Application\UI\Presenter{
+class SocialPresenter extends Nette\Application\UI\Presenter{
 
 	private Nette\Database\Explorer $database;
 
@@ -16,10 +16,12 @@ class PscPresenter extends Nette\Application\UI\Presenter{
     protected function createComponentPostForm(): Form
     {
         $form = new Form;
-        $form->addTextArea('adresa', 'adresa:')
+    
+        $form->addText('Nazev', 'Nazev:')
+        ->setRequired();
+        $form->addText('url', 'url:')
             ->setRequired();
-        $form->addTextArea('psc', 'psč:')
-            ->setRequired();
+       
     
         $form->addSubmit('send', 'Uložit a publikovat');
         $form->onSuccess[] = [$this, 'postFormSucceeded'];
@@ -27,17 +29,19 @@ class PscPresenter extends Nette\Application\UI\Presenter{
         return $form;
     }
     public function postFormSucceeded(Form $form, array $values): void
-   {
-	if (!$this->getUser()->isInRole('admin')) {
+{
+	 if (!$this->getUser()->isInRole('admin')) {
+	
 		$this->redirect(':Homepage:');
+	
 	}
 	$postId = $this->getParameter('postId');
 
 	if ($postId) {
-		$post = $this->database->table('footeradress')->get($postId);
+		$post = $this->database->table('socialnet')->get($postId);
 		$post->update($values);
 	} else {
-		$post = $this->database->table('footeradress')->insert($values);
+		$post = $this->database->table('socialnet')->insert($values);
 	}
 
 	$this->flashMessage('Příspěvek byl úspěšně publikován.', 'success');
@@ -45,12 +49,12 @@ class PscPresenter extends Nette\Application\UI\Presenter{
 }
 
 
-    public function actionEditAdress(int $postId): void
-   {
-    if (!$this->getUser()->isInRole('admin')) {
+    public function actionEdit(int $postId): void
+{
+	if (!$this->getUser()->isInRole('admin')) {
 		$this->redirect('Sign:in');
 	}
-	$post = $this->database->table('footeradress')->get($postId);
+	$post = $this->database->table('socialnet')->get($postId);
 	if (!$post) {
 		$this->error('Příspěvek nebyl nalezen');
 	}

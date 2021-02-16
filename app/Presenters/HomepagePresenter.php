@@ -39,6 +39,7 @@ class HomepagePresenter extends BasePresenter
     $this->template->postsA = $this->template->portfolia->get(100);
     $this->template->linky = $this->popisy_data
     ->getLinks();
+    $this->template->socky = $this->popisy_data->getSoc();
     
   /*  parent::startup();
 	if ($this->getUser()->isAllowed('edit')) {

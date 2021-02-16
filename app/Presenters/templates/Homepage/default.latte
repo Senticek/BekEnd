@@ -31,7 +31,7 @@
               <a n:href="Text:editText $logo->id" n:if="$user->isInRole(admin)">Edit</a></p>
             <!-- Masthead Heading-->
             <h1 class="masthead-heading text-uppercase mb-0">{$headTitle->popisy}</h1>
-            <a n:href="Text:editText $headTitle->id" n:if="$user->isInRole(admin)"">Edit</a>
+            <a n:href="Text:editText $headTitle->id" style="color:black" n:if="$user->isInRole(admin)">Edit</a>
             <!-- Icon Divider-->
             <div class="divider-custom divider-light">
                 <div class="divider-custom-line"></div>
@@ -40,7 +40,7 @@
             </div>
             <!-- Masthead Subheading-->
             <p class="masthead-subheading font-weight-light mb-0">{$subtitle->popisy}
-             <a n:href="Text:editText $subtitle->id" n:if="$user->isInRole(admin)">Edit</a></p>
+             <a n:href="Text:editText $subtitle->id" style="color:black" n:if="$user->isInRole(admin)">Edit</a></p>
               
         </div>
     </header>
@@ -122,7 +122,7 @@
                 <div class="col-lg-12 ml-auto">
                     <p class="lead text-center">
                         {$aboutUS->popisy}
-                          <a n:href="Text:editText $aboutUS->id" n:if="$user->isInRole(admin)">Edit</a></p>
+                          <a n:href="Text:editText $aboutUS->id" n:if="$user->isInRole(admin)" style="color:black">Edit</a></p>
                     </p>
                 </div>
             </div>
@@ -211,7 +211,7 @@
                         {$adress->adresa}
                         <br />
                         {$adress->psc}
-                         <a n:href="Psc:editAdress">Edit</a> 
+                         <a n:href="Psc:editAdress $adress->id" n:if="$user->isInRole(admin)">Edit</a> 
                         </div>
                         </p>
 
@@ -220,13 +220,13 @@
                 <!-- Footer Social Icons-->
                 <div class="col-lg-4 mb-5 mb-lg-0">
                     <h4 class="text-uppercase mb-4">Sociální sítě</h4>
-                    <a class="btn btn-outline-light btn-social mx-1" href="#!"><i
-                            class="fab fa-fw fa-facebook-f"></i></a>
-                    <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-twitter"></i></a>
-                    <a class="btn btn-outline-light btn-social mx-1" href="#!"><i
-                            class="fab fa-fw fa-linkedin-in"></i></a>
-                    <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-dribbble"></i></a>
+                    <div n:foreach="$socky as $soco">
+                    <a class="btn btn-outline-light btn-social mx-1" href="http://{$soco->url}"><p
+                            class="fab fa-fw fa-{$soco->Nazev}"></p>
+                            </a><a n:href="Social:edit $soco->id" n:if="$user->isInRole(admin)">Edit</a>
+                    </div>
                 </div>
+                
                 <!-- Footer About Text-->
                 <div class="col-lg-4">
                 
@@ -235,7 +235,7 @@
                      
                        {$link->text}
                         <a href="http://{$link->odkaz}">{$link->proklikText}
-                        </a>
+                        </a><a n:href="Link:editLink $link->id" n:if="$user->isInRole(admin)">Edit</a>
                       
                     
                         
