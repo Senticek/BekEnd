@@ -34,10 +34,15 @@ class Database
 	{
 		return $this->database->table('portfolia');
     }
-	public function getAdress()
+	public function getAdresses()
 	{
 		
 		return $this->database->table('footeradress');
+    }
+	public function getLinks()
+	{
+		
+		return $this->database->table('odkazy');
     }
 	
 

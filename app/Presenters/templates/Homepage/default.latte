@@ -125,8 +125,10 @@
                 <div class="divider-custom-line"></div>
             </div>
             <!-- Contact Section Form-->
+           
             <div class="row">
                 <div class="col-lg-8 mx-auto">
+                 
                     <form id="contactForm" name="sentMessage" novalidate="novalidate">
                         <div class="control-group">
                             <div class="form-group floating-label-form-group controls mb-0 pb-2">
@@ -168,10 +170,25 @@
                         <div class="form-group"><button class="btn btn-primary btn-xl" id="sendMessageButton"
                                 type="submit">Odeslat</button></div>
                     </form>
+        
+                
                 </div>
             </div>
         </div>
     </section>
+    <form n:name=objednavkaForm>
+            <ul class=error n:if="$form->ownErrors">
+                <li n:foreach="$form->ownErrors as $error">{$error}</li>
+            </ul>
+
+
+            <input type="text" n:name="jmeno" value="jmeno" onfocus ="if (this .value ==form.jmeno}this .value=''">
+            <input type="text" n:name="prijmeni" value="prijmeni" onfocus ="if (this .value ==prijmeni})this .value=''">
+            
+
+	
+            <input n:name=send>
+        </form>
     <!-- Footer-->
     <footer class="footer text-center">
         <div class="container">
@@ -180,11 +197,16 @@
                 <div class="col-lg-4 mb-5 mb-lg-0">
                     <h4 class="text-uppercase mb-4">Adresa</h4>
                     <p class="lead mb-0">
-                        Ulice 123/45
+                   <div n:foreach="$adresy as $adress">
+                   
+                        {$adress->adresa}
                         <br />
-                        616 00 Brno
-                        <a n:href="Adress:editAdress">Edit</a></p>
-                    </p>
+                        {$adress->psc}
+                         <a n:href="Psc:editAdress">Edit</a> 
+                        </div>
+                        </p>
+
+                   
                 </div>
                 <!-- Footer Social Icons-->
                 <div class="col-lg-4 mb-5 mb-lg-0">
@@ -198,11 +220,19 @@
                 </div>
                 <!-- Footer About Text-->
                 <div class="col-lg-4">
+                
                     <h4 class="text-uppercase mb-4">Odkazy</h4>
-                    <p class="lead mb-0">
-                        Více informací naleznete na
-                        <a href="https://dcsoft.cz/">dcsoft.cz</a>
-                    </p>
+                     <div n:foreach="$linky as $link" class="text-uppercase mb-4">
+                     
+                       {$link->text}
+                        <a href="http://{$link->odkaz}">{$link->proklikText}
+                        </a>
+                      
+                    
+                        
+                    
+                    
+                    </div>
                 </div>
             </div>
         </div>

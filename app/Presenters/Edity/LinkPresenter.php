@@ -5,7 +5,7 @@ use Nette;
 use Nette\Application\UI\Form;
 use Nette\Database\Explorer;
 
-class TextPresenter extends Nette\Application\UI\Presenter{
+class LinkPresenter extends Nette\Application\UI\Presenter{
 
 	private Nette\Database\Explorer $database;
 
@@ -16,7 +16,12 @@ class TextPresenter extends Nette\Application\UI\Presenter{
     protected function createComponentPostForm(): Form
     {
         $form = new Form;
-        $form->addTextArea('popisy', 'Obsah:')
+    
+        $form->addText('text', 'Titulek:')
+        ->setRequired();
+        $form->addEmail('odkaz', 'obrazek:')
+            ->setRequired();
+        $form->addTextArea('proklikText', 'Obsah:')
             ->setRequired();
     
         $form->addSubmit('send', 'Uložit a publikovat');
@@ -26,16 +31,18 @@ class TextPresenter extends Nette\Application\UI\Presenter{
     }
     public function postFormSucceeded(Form $form, array $values): void
 {
-	if (!$this->getUser()->isInRole('admin')) {
+	 if (!$this->getUser()->isInRole('admin')) {
+	
 		$this->redirect(':Homepage:');
+	
 	}
 	$postId = $this->getParameter('postId');
 
 	if ($postId) {
-		$post = $this->database->table('popisy')->get($postId);
+		$post = $this->database->table('odkazy')->get($postId);
 		$post->update($values);
 	} else {
-		$post = $this->database->table('popisy')->insert($values);
+		$post = $this->database->table('odkazy')->insert($values);
 	}
 
 	$this->flashMessage('Příspěvek byl úspěšně publikován.', 'success');
@@ -43,13 +50,12 @@ class TextPresenter extends Nette\Application\UI\Presenter{
 }
 
 
-    public function actionEditText(int $postId): void
+    public function actionEdit(int $postId): void
 {
-	
-    if (!$this->getUser()->isInRole('admin')) {
+	if (!$this->getUser()->isInRole('admin')) {
 		$this->redirect('Sign:in');
 	}
-	$post = $this->database->table('popisy')->get($postId);
+	$post = $this->database->table('odkazy')->get($postId);
 	if (!$post) {
 		$this->error('Příspěvek nebyl nalezen');
 	}

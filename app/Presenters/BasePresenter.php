@@ -6,11 +6,9 @@ use Nette\Application\UI\Presenter;
 use App\Model\ConstModel;
 use App\Model\Database;
 use Nette\Application\UI\ITemplate;
-use Filters;
-//use App\TEMPLATE_Module\TEMPLATE_Model;
 use Nette\Application\UI\Form;
 
- class BasePresenter extends Presenter
+ class BasePresenter extends Presenter 
 {
       /**
     * @var string
@@ -54,76 +52,39 @@ use Nette\Application\UI\Form;
    $this->formFactory = $formFactory;
 }*/
 
-   protected function startup(): void {
-      parent::startup();
-     
-   
-   
-  }
+public function createComponentObjednavkaForm()
+{
+    $form = new Nette\Application\UI\Form;
 
+    $form->getElementPrototype()->role[] = "form";
 
+    $form->addText('jmeno')
+        ->setRequired();
 
-  public function filter($param) {
-      return $param . ' paramFiltered';
-  }
+    $form->addText('prijmeni')
+        ->setRequired();
 
-  public function funct($param) {
-      return $param . ' Function done';
-  }
-   
-    public function beforeRender(): void
-    {
-
-      parent::startup();
-        $this->basePath = $this->getHttpRequest()->getUrl()->getBasePath();
-      if (strlen($this->basePath) > 0)  //remove slash at end
-         $this->basePath = rtrim($this->basePath);
-        
-         
-       /*  $this->template->daos = $this->modelPrayers->findAll();
-         $this->template->posts = $this->popisy_data
-         ->getPublicArticles();*/
-
-      
  
-       $this->template->addFilter('name', [$this, 'filter']);
-    
-      
-       $this->template->cssVersionSlug = $this->cssVersionSlug;
-       $this->template->VERSION = self::VERSION;
-       
-    
-  
-    }
 
+ $form->addSubmit('send');
 
-/*public function actionEdit(template $poster): void
-{
-	$this->template->$poster;
-
-  
-	$this['postForm']->setDefaults($poster);
+    $form->onSuccess[] = [$this, 'KontaktFormSucceeded'];
+    return $form;
 }
 
-public function postFormSucceeded(Form $form, array $values): void
+public function KontaktFormSucceeded($form)
 {
 
-		$post = $values;
-		
-	$this->redirect('Homepage:');
+ $this->redirect(':Homepage:');
+  /*  try {
+        $this->sendMail($form->getValues());
+       );
+        $this->redirect('this');
+    } catch (\Nette\InvalidStateException $e) {
+        $form->addError($this->translator->translate('messages.form.nepodarilo_se_odeslat_email_zkuste_to_prosim_za_chvili'));
+    }*/
 }
-*/
 
-/*protected function createComponentPostForm(): Form
-{
-	$form = new Form;
-	$form->addTextArea('content', 'Obsah:')
-	$form->addSubmit('send', 'Uložit a publikovat');
-		->setRequired();
-	$form->onSuccess[] = [$this, 'postFormSucceeded'];
-
-	return $form;
-}*/
 
   
 

@@ -5,7 +5,7 @@ use Nette;
 use Nette\Application\UI\Form;
 use Nette\Database\Explorer;
 
-class AdressPresenter extends Nette\Application\UI\Presenter{
+class PscPresenter extends Nette\Application\UI\Presenter{
 
 	private Nette\Database\Explorer $database;
 
@@ -16,7 +16,9 @@ class AdressPresenter extends Nette\Application\UI\Presenter{
     protected function createComponentPostForm(): Form
     {
         $form = new Form;
-        $form->addTextArea('popisy', 'Obsah:')
+        $form->addTextArea('adresa', 'adresa:')
+            ->setRequired();
+        $form->addTextArea('psc', 'psč:')
             ->setRequired();
     
         $form->addSubmit('send', 'Uložit a publikovat');
@@ -32,10 +34,10 @@ class AdressPresenter extends Nette\Application\UI\Presenter{
 	$postId = $this->getParameter('postId');
 
 	if ($postId) {
-		$post = $this->database->table('popisy')->get($postId);
+		$post = $this->database->table('footeradress')->get($postId);
 		$post->update($values);
 	} else {
-		$post = $this->database->table('popisy')->insert($values);
+		$post = $this->database->table('footeradress')->insert($values);
 	}
 
 	$this->flashMessage('Příspěvek byl úspěšně publikován.', 'success');
@@ -43,9 +45,12 @@ class AdressPresenter extends Nette\Application\UI\Presenter{
 }
 
 
-    public function actionEditText(int $postId): void
+    public function actionEdit(int $postId): void
 {
-	$post = $this->database->table('popisy')->get($postId);
+    if (!$this->getUser()->isInRole('admin')) {
+		$this->redirect('Sign:in');
+	}
+	$post = $this->database->table('footeradress')->get($postId);
 	if (!$post) {
 		$this->error('Příspěvek nebyl nalezen');
 	}

@@ -52,6 +52,9 @@ class FormPresenter extends Nette\Application\UI\Presenter{
 
     public function actionEdit(int $postId): void
 {
+	if (!$this->getUser()->isInRole('admin')) {
+		$this->redirect('Sign:in');
+	}
 	$post = $this->database->table('portfolia')->get($postId);
 	if (!$post) {
 		$this->error('Příspěvek nebyl nalezen');
