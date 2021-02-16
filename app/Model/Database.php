@@ -80,6 +80,24 @@ class Database
 		
 	}
 
+	public function databaseFormInsert( \stdClass $values)
+	{
+		
+		$message = $values->message;
+		$name = $values->name;
+		$phone = $values->phone; 
+		$email = $values->email;
+
+		$this->database->table('comments')->insert([
+			
+			'name' => $name,
+			'email' => $email,
+			'phone' => $phone,
+			'message' => $message,
+		]);
+		
+	}
+
 
 
 }

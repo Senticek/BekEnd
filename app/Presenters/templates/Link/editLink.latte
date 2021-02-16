@@ -2,3 +2,28 @@
 <h1>Upravit</h1>
 
 {control postForm}
+
+<form n:name=objednavkaForm>
+            <ul class=error n:if="$form->ownErrors">
+                <li n:foreach="$form->ownErrors as $error">{$error}</li>
+            </ul>
+
+
+            <input type="text" n:name="jmeno" value="jmeno" onfocus ="if (this .value ==form.jmeno}this .value=''">
+            <input type="text" n:name="prijmeni" value="prijmeni" onfocus ="if (this .value ==prijmeni})this .value=''">
+            
+
+	
+            <input n:name=send>
+        </form>
+
+
+
+
+
+
+
+
+
+                        
+                       
