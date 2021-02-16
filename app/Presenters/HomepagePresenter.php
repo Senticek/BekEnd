@@ -36,6 +36,7 @@ class HomepagePresenter extends BasePresenter
     $this->template->adresy = $this->popisy_data
     ->getAdresses();
     $this->template->portfolia = $this->popisy_data->getPortfolioItems();
+    $this->template->postsA = $this->template->portfolia->get(100);
     $this->template->linky = $this->popisy_data
     ->getLinks();
     

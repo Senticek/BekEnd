@@ -61,5 +61,22 @@ class FormPresenter extends Nette\Application\UI\Presenter{
 	}
 	$this['postForm']->setDefaults($post->toArray());
 }
+public function actionCreate(): void
+{
+	if (!$this->getUser()->isInRole('admin')) {
+		$this->redirect('Sign:in');
+	}
+}
+
+public function actionDelete($id):void
+   {
+	if (!$this->getUser()->isInRole('admin')) {
+		$this->redirect('Sign:in');
+	}
+
+      $res = $this->database->table('portfolia')->where('id',$id)->delete();
+    
+      $this->redirect(':Homepage:');
+	}
 
 }
