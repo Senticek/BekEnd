@@ -7,7 +7,7 @@ use Nette\Application\UI\Presenter;
 use App\Model\Database;
 use Nette\Application\UI\Form;
 
-class HomepagePresenter extends BasePresenter
+class HomepagePresenter extends Presenter 
 {
 
     private Database $popisy_data;
