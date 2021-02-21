@@ -5,6 +5,7 @@ use Nette;
 use Nette\Application\UI\Form;
 use Nette\Database\Explorer;
 use Nette\Utils\Image;
+use Nette\Utils\FileSystem;
 
 class FormPresenter extends Nette\Application\UI\Presenter{
 
@@ -20,7 +21,7 @@ class FormPresenter extends Nette\Application\UI\Presenter{
     
         $form->addText('headline', 'Titulek:')
         ->setRequired();
-        $form->addUpload('file', 'obrazek:')
+        $form->addUpload('image', 'obrazek:')
 			->addRule($form::IMAGE, 'Avatar musí být JPEG, PNG, GIF or WebP.')
             ->setRequired();
         $form->addTextArea('text', 'Obsah:')
@@ -38,12 +39,11 @@ class FormPresenter extends Nette\Application\UI\Presenter{
 		}
 
 			$postId = $this->getParameter('postId');
-
+			
 		$values = $form->values;
-		$file = $values['file'];
-		$image = Image::fromFile($file);
-		if($file->isImage() and $file->isOk()) {
-
+		if($values->image->isImage() and $values->image->isOk()) {
+		$path = "assets/img/portfolio/" . $values->image->getName();
+		$values->image->move($path);
 		}
 		if ($postId) {
 			$post = $this->database->table('portfolio')->get($postId);
