@@ -32,7 +32,6 @@
             <img class="masthead-avatar mb-5" src="{$mainLogo->image}" alt="PHP" />
             <!-- Masthead Heading-->
             <h1 class="masthead-heading text-uppercase mb-0">{$headTitle->descriptions}</h1>
-            <a n:href="Text:editText $headTitle->id" style="color:black" n:if="$user->isInRole(admin)">Edit</a>
             <!-- Icon Divider-->
             <div class="divider-custom divider-light">
                 <div class="divider-custom-line"></div>
@@ -41,7 +40,6 @@
             </div>
             <!-- Masthead Subheading-->
             <p class="masthead-subheading font-weight-light mb-0">{$subtitle->descriptions}
-             <a n:href="Text:editText $subtitle->id" style="color:black" n:if="$user->isInRole(admin)">Edit</a></p>
         </div>
     </header>
   <!-- Portfolio Section-->
@@ -86,7 +84,6 @@
                 <div class="col-lg-12 ml-auto">
                     <p class="lead text-center">
                         {$aboutUS->descriptions}
-                          <a n:href="Text:editText $aboutUS->id" n:if="$user->isInRole(admin)" style="color:black">Edit</a></p>
                     </p>
                 </div>
             </div>
@@ -160,7 +157,6 @@
                         {$adress->adress}
                         <br />
                         {$adress->psc}
-                         <a n:href="Psc:editAdress $adress->id" n:if="$user->isInRole(admin)">Edit</a> 
                         </div>
                         </p>  
                 </div>
@@ -178,7 +174,7 @@
                      <div n:foreach="$links as $link" class="text-uppercase mb-4">
                        {$link->text}
                         <a href="https://{$link->url}">{$link->clickableText}
-                        </a><a n:href="Link:editLink $link->id" n:if="$user->isInRole(admin)">Edit</a>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -219,8 +215,6 @@
                                 <img class="img-fluid rounded mb-5" src="{$post->image}" alt="" />
                                 <!-- Portfolio Modal - Text-->
                                 <p class="mb-5">{$post->text}
-                                 <a n:href="Form:edit $post->id" n:if="$user->isInRole(admin)">Edit</a>
-                                 <a n:href="Form:delete $post->id" n:if="$user->isInRole(admin)">Delete</a>
                                 </p>
                                 <button class="btn btn-primary" data-dismiss="modal">
                                     <i class="fas fa-times fa-fw"></i>
