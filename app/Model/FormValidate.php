@@ -9,16 +9,10 @@ use Nette\Utils\Validators;
 
 class FormValidate
 {
-
-
-	
-
 	public static function validateEmail(Control $control): bool
 	{
 		return Validators::isEmail((string) $control->getValue());
 	}
-
-
 
 }
 ?>
