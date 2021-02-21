@@ -13,18 +13,18 @@ class TextPresenter extends Nette\Application\UI\Presenter{
 	{
 		$this->database = $database;
 	}
-    protected function createComponentPostForm(): Form
+    protected function createComponentDescriptionsForm(): Form
     {
         $form = new Form;
         $form->addTextArea('popisy', 'Obsah:')
             ->setRequired();
     
         $form->addSubmit('send', 'Uložit a publikovat');
-        $form->onSuccess[] = [$this, 'postFormSucceeded'];
+        $form->onSuccess[] = [$this, 'descriptionsFormSucceeded'];
     
         return $form;
     }
-    public function postFormSucceeded(Form $form, array $values): void
+    public function descriptionFormSucceeded(Form $form, array $values): void
 {
 	if (!$this->getUser()->isInRole('admin')) {
 		$this->redirect(':Homepage:');

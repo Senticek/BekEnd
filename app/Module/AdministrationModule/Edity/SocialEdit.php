@@ -13,7 +13,7 @@ class SocialPresenter extends Nette\Application\UI\Presenter{
 	{
 		$this->database = $database;
 	}
-    protected function createComponentPostForm(): Form
+    protected function createComponentSocialsForm(): Form
     {
         $form = new Form;
     
@@ -24,11 +24,11 @@ class SocialPresenter extends Nette\Application\UI\Presenter{
        
     
         $form->addSubmit('send', 'Uložit a publikovat');
-        $form->onSuccess[] = [$this, 'postFormSucceeded'];
+        $form->onSuccess[] = [$this, 'socialsFormSucceeded'];
     
         return $form;
     }
-    public function postFormSucceeded(Form $form, array $values): void
+    public function socialsFormSucceeded(Form $form, array $values): void
 {
 	 if (!$this->getUser()->isInRole('admin')) {
 	

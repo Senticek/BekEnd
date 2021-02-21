@@ -13,7 +13,7 @@ class PscPresenter extends Nette\Application\UI\Presenter{
 	{
 		$this->database = $database;
 	}
-    protected function createComponentPostForm(): Form
+    protected function createComponentAddressForm(): Form
     {
         $form = new Form;
         $form->addTextArea('adresa', 'adresa:')
@@ -22,11 +22,11 @@ class PscPresenter extends Nette\Application\UI\Presenter{
             ->setRequired();
     
         $form->addSubmit('send', 'Uložit a publikovat');
-        $form->onSuccess[] = [$this, 'postFormSucceeded'];
+        $form->onSuccess[] = [$this, 'addressFormSucceeded'];
     
         return $form;
     }
-    public function postFormSucceeded(Form $form, array $values): void
+    public function addressFormSucceeded(Form $form, array $values): void
    {
 	if (!$this->getUser()->isInRole('admin')) {
 		$this->redirect(':Homepage:');

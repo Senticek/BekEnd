@@ -13,7 +13,7 @@ class LinkPresenter extends Nette\Application\UI\Presenter{
 	{
 		$this->database = $database;
 	}
-    protected function createComponentPostForm(): Form
+    protected function createComponentLinkForm(): Form
     {
         $form = new Form;
     
@@ -25,11 +25,11 @@ class LinkPresenter extends Nette\Application\UI\Presenter{
             ->setRequired();
     
         $form->addSubmit('send', 'Uložit a publikovat');
-        $form->onSuccess[] = [$this, 'postFormSucceeded'];
+        $form->onSuccess[] = [$this, 'linkFormSucceeded'];
     
         return $form;
     }
-    public function postFormSucceeded(Form $form, array $values): void
+    public function linkFormSucceeded(Form $form, array $values): void
 {
 	 if (!$this->getUser()->isInRole('admin')) {
 	
