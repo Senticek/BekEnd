@@ -58,14 +58,13 @@ class HomepagePresenter extends Presenter
     $form->getElementPrototype()->role[] = "form";
 
     $form->addText('name')
-        ->setRequired("zadejte jmeno");
+        ->setRequired("");
     $form->addEmail('email')
-        ->setRequired("zadejte email");
+        ->setRequired("");
     $form->addInteger('phone')
-        ->setRequired("spatne vyplnene cislo")
-        ;
+        ->setRequired("");
     $form->addTextArea('message')
-        ->setRequired("zadejte zpravu");
+        ->setRequired("");
 
  
 
