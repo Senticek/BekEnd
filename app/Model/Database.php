@@ -49,6 +49,10 @@ class Database
 		
 		return $this->database->table('socialnet');
     }
+	public function getLogo()
+	{
+		return $this->database->table('logo');
+	}
 	
 	
 
