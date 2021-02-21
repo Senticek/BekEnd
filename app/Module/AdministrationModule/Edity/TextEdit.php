@@ -16,7 +16,7 @@ class TextPresenter extends Nette\Application\UI\Presenter{
     protected function createComponentDescriptionsForm(): Form
     {
         $form = new Form;
-        $form->addTextArea('popisy', 'Obsah:')
+        $form->addTextArea('descriptions', 'Obsah:')
             ->setRequired();
     
         $form->addSubmit('send', 'Uložit a publikovat');
@@ -27,7 +27,7 @@ class TextPresenter extends Nette\Application\UI\Presenter{
     public function descriptionFormSucceeded(Form $form, array $values): void
 {
 	if (!$this->getUser()->isInRole('admin')) {
-		$this->redirect(':Homepage:');
+		$this->redirect(':Admin:');
 	}
 	$postId = $this->getParameter('postId');
 
@@ -38,7 +38,7 @@ class TextPresenter extends Nette\Application\UI\Presenter{
 		$post = $this->database->table('popisy')->insert($values);
 	}
 
-	$this->flashMessage('Příspěvek byl úspěšně publikován.', 'success');
+	$this->flashMessage('Příspěvek 	byl úspěšně publikován.', 'success');
 	$this->redirect(':Admin:');
 }
 

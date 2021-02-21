@@ -17,9 +17,9 @@ class FormPresenter extends Nette\Application\UI\Presenter{
     {
         $form = new Form;
     
-        $form->addText('nadpis', 'Titulek:')
+        $form->addText('headline', 'Titulek:')
         ->setRequired();
-        $form->addText('obrazek', 'obrazek:')
+        $form->addText('image', 'obrazek:')
             ->setRequired();
         $form->addTextArea('text', 'Obsah:')
             ->setRequired();
@@ -46,7 +46,7 @@ class FormPresenter extends Nette\Application\UI\Presenter{
 	}
 
 	$this->flashMessage('Příspěvek byl úspěšně publikován.', 'success');
-	$this->redirect(':Homepage:');
+	$this->redirect(':Admin:');
 }
 
 
@@ -76,7 +76,7 @@ public function actionDelete($id):void
 
       $res = $this->database->table('portfolio')->where('id',$id)->delete();
     
-      $this->redirect(':Homepage:');
+      $this->redirect(':Admin:');
 	}
 
 }

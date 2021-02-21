@@ -19,9 +19,9 @@ class LinkPresenter extends Nette\Application\UI\Presenter{
     
         $form->addText('text', 'Titulek:')
         ->setRequired();
-        $form->addEmail('odkaz', 'obrazek:')
+        $form->addEmail('url', 'obrazek:')
             ->setRequired();
-        $form->addTextArea('proklikText', 'Obsah:')
+        $form->addTextArea('clickableText', 'Obsah:')
             ->setRequired();
     
         $form->addSubmit('send', 'Uložit a publikovat');
@@ -29,11 +29,12 @@ class LinkPresenter extends Nette\Application\UI\Presenter{
     
         return $form;
     }
+	
     public function linkFormSucceeded(Form $form, array $values): void
 {
 	 if (!$this->getUser()->isInRole('admin')) {
 	
-		$this->redirect(':Homepage:');
+		$this->redirect('Sign:in');
 	
 	}
 	$postId = $this->getParameter('postId');
