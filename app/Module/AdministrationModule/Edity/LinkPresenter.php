@@ -39,14 +39,14 @@ class LinkPresenter extends Nette\Application\UI\Presenter{
 	$postId = $this->getParameter('postId');
 
 	if ($postId) {
-		$post = $this->database->table('odkazy')->get($postId);
+		$post = $this->database->table('links')->get($postId);
 		$post->update($values);
 	} else {
-		$post = $this->database->table('odkazy')->insert($values);
+		$post = $this->database->table('links')->insert($values);
 	}
 
 	$this->flashMessage('Příspěvek byl úspěšně publikován.', 'success');
-	$this->redirect(':Homepage:');
+	$this->redirect(':Admin:');
 }
 
 
@@ -55,7 +55,7 @@ class LinkPresenter extends Nette\Application\UI\Presenter{
 	if (!$this->getUser()->isInRole('admin')) {
 		$this->redirect('Sign:in');
 	}
-	$post = $this->database->table('odkazy')->get($postId);
+	$post = $this->database->table('links')->get($postId);
 	if (!$post) {
 		$this->error('Příspěvek nebyl nalezen');
 	}
