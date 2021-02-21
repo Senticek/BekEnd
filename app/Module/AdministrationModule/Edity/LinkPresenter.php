@@ -19,48 +19,47 @@ class LinkPresenter extends Nette\Application\UI\Presenter{
     
         $form->addText('text', 'Titulek:')
         ->setRequired();
-        $form->addEmail('url', 'obrazek:')
-            ->setRequired();
+        $form->addText('url', 'odkaz:')
+            ->setHtmlType('url');
         $form->addTextArea('clickableText', 'Obsah:')
             ->setRequired();
     
         $form->addSubmit('send', 'Uložit a publikovat');
         $form->onSuccess[] = [$this, 'linkFormSucceeded'];
-    
         return $form;
     }
-	
-    public function linkFormSucceeded(Form $form, array $values): void
-{
-	 if (!$this->getUser()->isInRole('admin')) {
-	
-		$this->redirect('Sign:in');
-	
-	}
-	$postId = $this->getParameter('postId');
 
-	if ($postId) {
+	public function linkFormSucceeded(Form $form, array $values): void
+	{
+		if (!$this->getUser()->isInRole('admin')) {
+		
+			$this->redirect('Sign:in');
+		
+		}
+		$postId = $this->getParameter('postId');
+
+		if ($postId) {
+			$post = $this->database->table('links')->get($postId);
+			$post->update($values);
+		} else {
+			$post = $this->database->table('links')->insert($values);
+		}
+
+		$this->flashMessage('Příspěvek byl úspěšně publikován.', 'success');
+		$this->redirect(':Admin:');
+	}
+
+
+	public function actionEditLink(int $postId): void
+	{
+		if (!$this->getUser()->isInRole('admin')) {
+			$this->redirect('Sign:in');
+		}
 		$post = $this->database->table('links')->get($postId);
-		$post->update($values);
-	} else {
-		$post = $this->database->table('links')->insert($values);
+		if (!$post) {
+			$this->error('Příspěvek nebyl nalezen');
+		}
+		$this['linkForm']->setDefaults($post->toArray());
 	}
-
-	$this->flashMessage('Příspěvek byl úspěšně publikován.', 'success');
-	$this->redirect(':Admin:');
-}
-
-
-    public function actionEditLink(int $postId): void
-{
-	if (!$this->getUser()->isInRole('admin')) {
-		$this->redirect('Sign:in');
-	}
-	$post = $this->database->table('links')->get($postId);
-	if (!$post) {
-		$this->error('Příspěvek nebyl nalezen');
-	}
-	$this['linkForm']->setDefaults($post->toArray());
-}
 
 }

@@ -28,69 +28,62 @@ class FormPresenter extends Nette\Application\UI\Presenter{
     
         $form->addSubmit('send', 'Uložit a publikovat');
         $form->onSuccess[] = [$this, 'portfolioFormSucceeded'];
-			
-		
-    
         return $form;
     }
-    public function portfolioFormSucceeded(Form $form, array $values): void
-{
-	 if (!$this->getUser()->isInRole('admin')) {
-	
-		$this->redirect(':Homepage:');
-	
+	public function portfolioFormSucceeded(Form $form, array $values): void
+	{
+		if (!$this->getUser()->isInRole('admin')) {
+		
+			$this->redirect(':Homepage:');
+		}
+
+			$postId = $this->getParameter('postId');
+
+		$values = $form->values;
+		$file = $values['file'];
+		$image = Image::fromFile($file);
+		if($file->isImage() and $file->isOk()) {
+
+		}
+		if ($postId) {
+			$post = $this->database->table('portfolio')->get($postId);
+			$post->update($values);
+		} else {
+			$post = $this->database->table('portfolio')->insert($values);
+		}
+		$this->flashMessage('Příspěvek byl úspěšně publikován.', 'success');
+		$this->redirect(':Admin:');
 	}
 
-	$postId = $this->getParameter('postId');
 
-	
-  $values = $form->values;
-  $file = $values['file'];
-  $image = Image::fromFile($file);
-  if($file->isImage() and $file->isOk()) {
-
-    // přesunutí souboru z temp složky někam, kam nahráváš soubory
-   // $file->move('\www\assets\ '. $file);
-  }
-	if ($postId) {
+	public function actionEdit(int $postId): void
+	{
+		if (!$this->getUser()->isInRole('admin')) {
+			$this->redirect('Sign:in');
+		}
 		$post = $this->database->table('portfolio')->get($postId);
-		$post->update($values);
-	} else {
-		$post = $this->database->table('portfolio')->insert($values);
+		if (!$post) {
+			$this->error('Příspěvek nebyl nalezen');
+		}
+		$this['portfolioForm']->setDefaults($post->toArray());
 	}
 
-	$this->flashMessage('Příspěvek byl úspěšně publikován.', 'success');
-	$this->redirect(':Admin:');
-}
-
-
-    public function actionEdit(int $postId): void
-{
-	if (!$this->getUser()->isInRole('admin')) {
-		$this->redirect('Sign:in');
-	}
-	$post = $this->database->table('portfolio')->get($postId);
-	if (!$post) {
-		$this->error('Příspěvek nebyl nalezen');
-	}
-	$this['portfolioForm']->setDefaults($post->toArray());
-}
-public function actionCreate(): void
-{
-	if (!$this->getUser()->isInRole('admin')) {
-		$this->redirect('Sign:in');
-	}
-}
-
-public function actionDelete($id):void
-   {
-	if (!$this->getUser()->isInRole('admin')) {
-		$this->redirect('Sign:in');
+	public function actionCreate(): void
+	{
+		if (!$this->getUser()->isInRole('admin')) {
+			$this->redirect('Sign:in');
+		}
 	}
 
-      $res = $this->database->table('portfolio')->where('id',$id)->delete();
-    
-      $this->redirect(':Admin:');
-	}
+	public function actionDelete($id):void
+	{
+		if (!$this->getUser()->isInRole('admin')) {
+			$this->redirect('Sign:in');
+		}
+
+		$res = $this->database->table('portfolio')->where('id',$id)->delete();
+		
+		$this->redirect(':Admin:');
+		}
 
 }

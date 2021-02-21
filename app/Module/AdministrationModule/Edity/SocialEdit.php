@@ -28,37 +28,37 @@ class SocialPresenter extends Nette\Application\UI\Presenter{
     
         return $form;
     }
-    public function socialsFormSucceeded(Form $form, array $values): void
-{
-	 if (!$this->getUser()->isInRole('admin')) {
-	
-		$this->redirect(':Homepage:');
-	
-	}
-	$postId = $this->getParameter('postId');
+	public function socialsFormSucceeded(Form $form, array $values): void
+	{
+		if (!$this->getUser()->isInRole('admin')) {
+		
+			$this->redirect(':Homepage:');
+		
+		}
+		$postId = $this->getParameter('postId');
 
-	if ($postId) {
+		if ($postId) {
+			$post = $this->database->table('socialnet')->get($postId);
+			$post->update($values);
+		} else {
+			$post = $this->database->table('socialnet')->insert($values);
+		}
+
+		$this->flashMessage('Příspěvek byl úspěšně publikován.', 'success');
+		$this->redirect(':Admin:');
+	}
+
+
+	public function actionEdit(int $postId): void
+	{
+		if (!$this->getUser()->isInRole('admin')) {
+			$this->redirect('Sign:in');
+		}
 		$post = $this->database->table('socialnet')->get($postId);
-		$post->update($values);
-	} else {
-		$post = $this->database->table('socialnet')->insert($values);
+		if (!$post) {
+			$this->error('Příspěvek nebyl nalezen');
+		}
+		$this['socialsForm']->setDefaults($post->toArray());
 	}
-
-	$this->flashMessage('Příspěvek byl úspěšně publikován.', 'success');
-	$this->redirect(':Admin:');
-}
-
-
-    public function actionEdit(int $postId): void
-{
-	if (!$this->getUser()->isInRole('admin')) {
-		$this->redirect('Sign:in');
-	}
-	$post = $this->database->table('socialnet')->get($postId);
-	if (!$post) {
-		$this->error('Příspěvek nebyl nalezen');
-	}
-	$this['socialsForm']->setDefaults($post->toArray());
-}
 
 }

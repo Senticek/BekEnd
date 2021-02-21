@@ -24,36 +24,37 @@ class TextPresenter extends Nette\Application\UI\Presenter{
     
         return $form;
     }
-    public function descriptionFormSucceeded(Form $form, array $values): void
-{
-	if (!$this->getUser()->isInRole('admin')) {
+	
+	public function descriptionFormSucceeded(Form $form, array $values): void
+	{
+		if (!$this->getUser()->isInRole('admin')) {
+			$this->redirect(':Admin:');
+		}
+		$postId = $this->getParameter('postId');
+
+		if ($postId) {
+			$post = $this->database->table('popisy')->get($postId);
+			$post->update($values);
+		} else {
+			$post = $this->database->table('popisy')->insert($values);
+		}
+
+		$this->flashMessage('Příspěvek 	byl úspěšně publikován.', 'success');
 		$this->redirect(':Admin:');
 	}
-	$postId = $this->getParameter('postId');
 
-	if ($postId) {
+
+	public function actionEditText(int $postId): void
+	{
+		
+		if (!$this->getUser()->isInRole('admin')) {
+			$this->redirect('Sign:in');
+		}
 		$post = $this->database->table('popisy')->get($postId);
-		$post->update($values);
-	} else {
-		$post = $this->database->table('popisy')->insert($values);
+		if (!$post) {
+			$this->error('Příspěvek nebyl nalezen');
+		}
+		$this['socialsForm']->setDefaults($post->toArray());
 	}
-
-	$this->flashMessage('Příspěvek 	byl úspěšně publikován.', 'success');
-	$this->redirect(':Admin:');
-}
-
-
-    public function actionEditText(int $postId): void
-{
-	
-    if (!$this->getUser()->isInRole('admin')) {
-		$this->redirect('Sign:in');
-	}
-	$post = $this->database->table('popisy')->get($postId);
-	if (!$post) {
-		$this->error('Příspěvek nebyl nalezen');
-	}
-	$this['socialsForm']->setDefaults($post->toArray());
-}
 
 }
