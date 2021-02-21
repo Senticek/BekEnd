@@ -14,9 +14,6 @@ class UserAcl
       $acl = new NS\Permission;
       
       $acl->addRole('admin');
-      $acl->addRole('user');
-      $acl->addRole('guest');
-      
       //todo
       $acl->addResource('edit');
       
