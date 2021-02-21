@@ -13,6 +13,7 @@ class PscPresenter extends Nette\Application\UI\Presenter{
 	{
 		$this->database = $database;
 	}
+	
     protected function createComponentAddressForm(): Form
     {
         $form = new Form;
@@ -44,7 +45,6 @@ class PscPresenter extends Nette\Application\UI\Presenter{
 		$this->flashMessage('Příspěvek byl úspěšně publikován.', 'success');
 		$this->redirect(':Admin:');
 	}
-
 
 	public function actionEditAdress(int $postId): void
 	{

@@ -13,6 +13,7 @@ class SocialPresenter extends Nette\Application\UI\Presenter{
 	{
 		$this->database = $database;
 	}
+
     protected function createComponentSocialsForm(): Form
     {
         $form = new Form;
@@ -28,6 +29,7 @@ class SocialPresenter extends Nette\Application\UI\Presenter{
     
         return $form;
     }
+
 	public function socialsFormSucceeded(Form $form, array $values): void
 	{
 		if (!$this->getUser()->isInRole('admin')) {
@@ -47,7 +49,6 @@ class SocialPresenter extends Nette\Application\UI\Presenter{
 		$this->flashMessage('Příspěvek byl úspěšně publikován.', 'success');
 		$this->redirect(':Admin:');
 	}
-
 
 	public function actionEdit(int $postId): void
 	{

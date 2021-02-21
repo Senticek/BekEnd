@@ -11,6 +11,7 @@ class HomepagePresenter extends Presenter
 {
      private Database $dtb_data;
      private Template $post;
+     
      public function __construct(Database $dtb_data)
      {
      $this->dtb_data =$dtb_data ;
@@ -18,7 +19,6 @@ class HomepagePresenter extends Presenter
     
     public function renderDefault(): void
 	{
-     
           $this->template->posts = $this->dtb_data->getPublicArticles();
 
           $this->template->headTitle = $this->template->posts->get(1);
@@ -37,7 +37,6 @@ class HomepagePresenter extends Presenter
   
         
           $this->template->socials = $this->dtb_data->getSoc();
-
 	}
 
      public function createComponentCommentForm()
@@ -70,5 +69,4 @@ class HomepagePresenter extends Presenter
                $form->addError('Špatně vyplněný formulář');
           }
      }
-
 }

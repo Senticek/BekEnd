@@ -30,11 +30,7 @@
      </br>
      Odkazy:
      <div n:foreach="$links as $link" class="text-uppercase mb-4">
-                     
                    {$link->clickableText}
                  <a n:href="Link:editLink $link->id" n:if="$user->isInRole(admin)">Edit</a>
      </div>
       
-
-
-ahoj

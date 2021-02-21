@@ -12,11 +12,8 @@ class UserAcl
    public static function create()
    {
       $acl = new NS\Permission;
-      
       $acl->addRole('admin');
-      //todo
       $acl->addResource('edit');
-      
       $acl->allow('admin','edit');
       return $acl;
    }

@@ -29,7 +29,6 @@ class LogoPresenter extends Nette\Application\UI\Presenter{
 	public function logoFormSucceeded(Form $form, array $values): void
 	{
 		if (!$this->getUser()->isInRole('admin')) {
-		
 			$this->redirect(':Homepage:');
 		}
 
@@ -39,7 +38,6 @@ class LogoPresenter extends Nette\Application\UI\Presenter{
 		$path = "assets/img/" . $values->image->getName();
 		$values->image->move($path);
 		}
-	
 			$post = $this->database->table('logo')->get(1);
 			$post->update($values);
 		

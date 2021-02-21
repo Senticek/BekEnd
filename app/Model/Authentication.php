@@ -21,8 +21,6 @@ class Authentication implements Nette\Security\Authenticator
 
 	public function authenticate(string $username, string $password): SimpleIdentity
 	{
-		
-
 		$row = $this->database->table('users')
 			->where('username', $username)
 			->fetch();
@@ -43,7 +41,5 @@ class Authentication implements Nette\Security\Authenticator
 		
 		);
 	}
-
-
 }
 ?>

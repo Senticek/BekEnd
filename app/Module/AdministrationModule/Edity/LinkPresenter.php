@@ -16,7 +16,6 @@ class LinkPresenter extends Nette\Application\UI\Presenter{
     protected function createComponentLinkForm(): Form
     {
         $form = new Form;
-    
         $form->addText('text', 'Titulek:')
         ->setRequired();
         $form->addText('url', 'odkaz:')
@@ -32,9 +31,7 @@ class LinkPresenter extends Nette\Application\UI\Presenter{
 	public function linkFormSucceeded(Form $form, array $values): void
 	{
 		if (!$this->getUser()->isInRole('admin')) {
-		
 			$this->redirect('Sign:in');
-		
 		}
 		$postId = $this->getParameter('postId');
 
@@ -44,7 +41,6 @@ class LinkPresenter extends Nette\Application\UI\Presenter{
 		} else {
 			$post = $this->database->table('links')->insert($values);
 		}
-
 		$this->flashMessage('Příspěvek byl úspěšně publikován.', 'success');
 		$this->redirect(':Admin:');
 	}

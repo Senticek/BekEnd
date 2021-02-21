@@ -9,14 +9,11 @@ class Database
 	use Nette\SmartObject;
 
 	private Nette\Database\Explorer $database;
-	private $passwords;
 	private Authentication $authenticator;
+	private Nette\Security\Passwords $passwords;
 	
-	
-
 	private $password;
 	private $username;
-	
 	private $email;
 	
 	public function __construct(Nette\Database\Explorer $database,Nette\Security\Passwords $passwords,Authentication $authenticator)
@@ -27,7 +24,6 @@ class Database
 	}
 	public function getPublicArticles()
 	{
-		
 		return $this->database->table('descriptions');
     }
 	public function getPortfolioItems()
@@ -36,17 +32,14 @@ class Database
     }
 	public function getAdresses()
 	{
-		
 		return $this->database->table('footeradress');
     }
 	public function getLinks()
 	{
-		
 		return $this->database->table('links');
     }
 	public function getSoc()
 	{
-		
 		return $this->database->table('socialnet');
     }
 	public function getLogo()
@@ -54,8 +47,6 @@ class Database
 		return $this->database->table('logo');
 	}
 	
-	
-
 	public function databaseInsert( \stdClass $values)
 	{
 		$row="";
@@ -84,13 +75,7 @@ class Database
 		}
 	
 		}else{return "Jmeno";}
-	
-		
-		
-	}
-
-	
-	
+	}	
 	/**
 	*@param \stdClass
 	*/
@@ -110,12 +95,7 @@ class Database
 			'message' => $message,
 		]);
 		
-		
-		
 	}
-
-
-
 }
 
 ?>

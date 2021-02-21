@@ -24,19 +24,17 @@ class RegPresenter extends Nette\Application\UI\Presenter
 	{
         $values="";
         $form = new form;
-    $form->addText('username', 'Your username:');
-	
 
+        $form->addText('username', 'Your username:');
+        $form->addPassword('password', 'Choose password:')
+        ->addRule($form::MIN_LENGTH, 'The password is too short: it must be at least %d characters', 5);
+        $form->addPassword('password2', 'Reenter password:')
+        ->addRule($form::EQUAL, 'Passwords do not match', $form['password']);
+        $form->addEmail('email', 'email')
+        ->addRule($form::EMAIL);
 
-    $form->addPassword('password', 'Choose password:')
-	->addRule($form::MIN_LENGTH, 'The password is too short: it must be at least %d characters', 5);
-    $form->addPassword('password2', 'Reenter password:')
-	->addRule($form::EQUAL, 'Passwords do not match', $form['password']);
-    $form->addEmail('email', 'email')
-	->addRule($form::EMAIL);
-
-    $form->addSubmit('send', 'Registrovat');
-    $form->onSuccess[] = [$this, 'signInFormSucceeded'];
+        $form->addSubmit('send', 'Registrovat');
+        $form->onSuccess[] = [$this, 'signInFormSucceeded'];
 
 
     return $form;
@@ -47,24 +45,19 @@ class RegPresenter extends Nette\Application\UI\Presenter
         $message="";
         
 		$message = $this->insert->databaseInsert($values);
-        sleep(1);
-        
-
         if($message =="email")
         {
-
             $form->addError("email je jiz pouzivan");
         }else if($message == "Jmeno")
         {
-
             $form->addError("Jmeno je obsazeno");
         }else if($message == "nic"){
        
-            $user = $this->getUser();
+        $user = $this->getUser();
         $user->authenticator->authenticate($values->username, $values->password);
         $user->login($values->username, $values->password);
 
-            $this->redirect('Homepage:');
+         $this->redirect('Homepage:');
             
 
         }

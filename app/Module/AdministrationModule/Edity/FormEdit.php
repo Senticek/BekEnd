@@ -18,7 +18,6 @@ class FormPresenter extends Nette\Application\UI\Presenter{
     protected function createComponentPortfolioForm(): Form
     {
         $form = new Form;
-    
         $form->addText('headline', 'Titulek:')
         ->setRequired();
         $form->addUpload('image', 'obrazek:')
@@ -34,10 +33,8 @@ class FormPresenter extends Nette\Application\UI\Presenter{
 	public function portfolioFormSucceeded(Form $form, array $values): void
 	{
 		if (!$this->getUser()->isInRole('admin')) {
-		
 			$this->redirect(':Homepage:');
 		}
-
 			$postId = $this->getParameter('postId');
 			
 		$values = $form->values;
@@ -80,9 +77,7 @@ class FormPresenter extends Nette\Application\UI\Presenter{
 		if (!$this->getUser()->isInRole('admin')) {
 			$this->redirect('Sign:in');
 		}
-
 		$res = $this->database->table('portfolio')->where('id',$id)->delete();
-		
 		$this->redirect(':Admin:');
 		}
 

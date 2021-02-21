@@ -43,7 +43,6 @@ class TextPresenter extends Nette\Application\UI\Presenter{
 		$this->redirect(':Admin:');
 	}
 
-
 	public function actionEditText(int $postId): void
 	{
 		
