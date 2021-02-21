@@ -56,18 +56,19 @@
                 <div class="divider-custom-line"></div>
             </div>
             <!-- Portfolio Grid Items-->
-        <div class="row justify-content-center">
-            <div n:foreach="$portfolio as $post"  n:if ="$post->id!=100" class="col-md-6 col-lg-4 mb-5" >
+       
+           <div class="row justify-content-center" >
+                <div n:foreach="$portfolio as $post" class="col-md-6 col-lg-4 mb-5">
                     <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal{$post->id}">
                         <div
                             class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                             <div class="portfolio-item-caption-content text-center text-white"><i
                                     class="fas fa-plus fa-3x"></i></div>
                         </div>
-                        <img class="img-fluid" src="assets/img/portfolio/{$post->image}" alt="" />
-                    </div>
+                        <img class="img-fluid" src="{$post->image}" alt="" />
+                    
                 </div>
-        </div>
+         </div>
         </div>                      
     </section>
     <!-- About Section-->
@@ -166,13 +167,14 @@
                         </p>  
                 </div>
                 <!-- Footer Social Icons-->
-                <div class="col-lg-4 mb-5 mb-lg-0">
-                    <h4 class="text-uppercase mb-4">Sociální sítě</h4>
-                    <div n:foreach="$socials as $soc">
-                    <a class="btn btn-outline-light btn-social mx-1" href="http://{$soc->url}"><p
-                            class="fab fa-fw fa-{$soc->title}"></p>
-                            </a><a n:href="Social:edit $soc->id" n:if="$user->isInRole(admin)">Edit</a>
-                    </div>
+               
+                <div>
+                     <h4 class="text-uppercase mb-4">Sociální sítě</h4>
+                    <a n:foreach="$socials as $soc">
+                     <a class="btn btn-outline-light btn-social mx-1" href="https://{$soc->url}">
+                           <i class="fab fa-fw fa-{$soc->title}"></i></a>
+                    
+                     </a>
                 </div>
                 <!-- Footer About Text-->
                 <div class="col-lg-4">
@@ -220,7 +222,7 @@
                                     <div class="divider-custom-line"></div>
                                 </div>
                                 <!-- Portfolio Modal - Image-->
-                                <img class="img-fluid rounded mb-5" src="assets/img/portfolio/{$post->image}" alt="" />
+                                <img class="img-fluid rounded mb-5" src="{$post->image}" alt="" />
                                 <!-- Portfolio Modal - Text-->
                                 <p class="mb-5">{$post->text}
                                  <a n:href="Form:edit $post->id" n:if="$user->isInRole(admin)">Edit</a>
