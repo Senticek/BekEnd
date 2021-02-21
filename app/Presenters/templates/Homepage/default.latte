@@ -27,8 +27,7 @@
     <header class="masthead bg-primary text-white text-center">
         <div class="container d-flex align-items-center flex-column">
             <!-- Masthead Avatar Image-->
-            <img class="masthead-avatar mb-5" src="assets/img/{$logo->descriptions}" alt="PHP" />
-              <a n:href="Text:editText $logo->id" n:if="$user->isInRole(admin)">Edit</a></p>
+            <img class="masthead-avatar mb-5" src="{$mainLogo->image}" alt="PHP" />
             <!-- Masthead Heading-->
             <h1 class="masthead-heading text-uppercase mb-0">{$headTitle->descriptions}</h1>
             <a n:href="Text:editText $headTitle->id" style="color:black" n:if="$user->isInRole(admin)">Edit</a>
