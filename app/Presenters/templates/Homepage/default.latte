@@ -183,7 +183,7 @@
                      <div n:foreach="$links as $link" class="text-uppercase mb-4">
                      
                        {$link->text}
-                        <a href="http://{$link->url}">{$link->clickableText}
+                        <a href="https://{$link->url}">{$link->clickableText}
                         </a><a n:href="Link:editLink $link->id" n:if="$user->isInRole(admin)">Edit</a>
                     </div>
                 </div>
