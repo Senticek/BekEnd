@@ -1,3 +1,39 @@
 {block content}
-{$headTitle->descriptions}
+<p>HeadTitle:  {$headTitle->descriptions}
+<a n:href="Text:editText $headTitle->id">Edit</a></P>
+<p>SubTitle:  {$subtitle->descriptions}
+<a n:href="Text:editText $subtitle->id">Edit</a></P>
+<p>aboutUS:  {$aboutUS->descriptions}
+<a n:href="Text:editText $aboutUS->id">Edit</a></P>
+<p>logo:  {$logo->descriptions}
+<a n:href="Text:editText $logo->id">Edit</a></p>
+        <div n:foreach="$portfolio as $post">
+         {$post->headline}
+        <a n:href="Form:edit $post->id">Edit</a>
+        <a n:href="Form:delete $post->id" style="color:black">Remove</a>               
+         </div>
+       <p>  Add Portfolio item: <a n:href="Form:create"> create</a></p>
+         
+      Adresy:   
+     <div n:foreach="$adresses as $adress">
+                   
+                  {$adress->adress}   {$adress->psc} 
+                 <a n:href="Psc:editAdress $adress->id">Edit</a> 
+     </div>
+     </br>
+     Socialni Sítě:
+     <div n:foreach="$socials as $soc">
+                  {$soc->title}
+                 <a n:href="Social:edit $soc->id" n:if="$user->isInRole(admin)">Edit</a>
+     </div>
+     </br>
+     Odkazy:
+     <div n:foreach="$links as $link" class="text-uppercase mb-4">
+                     
+                   {$link->clickableText}
+                 <a n:href="Link:editLink $link->id" n:if="$user->isInRole(admin)">Edit</a>
+     </div>
+      
+
+
 ahoj
