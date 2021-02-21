@@ -38,7 +38,7 @@ class Authentication implements Nette\Security\Authenticator
 		return new SimpleIdentity(
 			
 			$row->id,
-			$row->role, // nebo pole více rolí
+			$row->role, // can add more roles
 			['name' => $row->username]
 		
 		);
