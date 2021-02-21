@@ -50,25 +50,21 @@ class HomepagePresenter extends Presenter
 
 	}
 
-  public function createComponentObjednavkaForm()
+  public function createComponentCommentForm()
   {
     $form = new Nette\Application\UI\Form;
-    
-
     $form->getElementPrototype()->role[] = "form";
 
     $form->addText('name')
-        ->setRequired("");
+         ->setRequired("");
     $form->addEmail('email')
-        ->setRequired("");
+         ->setRequired("");
     $form->addInteger('phone')
-        ->setRequired("");
+         ->setRequired("");
     $form->addTextArea('message')
-        ->setRequired("");
+         ->setRequired("");
 
- 
-
- $form->addSubmit('send');
+    $form->addSubmit('send');
 
     $form->onSuccess[] = [$this, 'SentFormSucceeded'];
     return $form;
@@ -77,8 +73,6 @@ class HomepagePresenter extends Presenter
   
 public function SentFormSucceeded($form, $values)
 {
-
-
   try {
        
        $this->dtb_data->databaseFormInsert($values);

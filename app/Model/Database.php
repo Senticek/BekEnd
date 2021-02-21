@@ -93,7 +93,7 @@ class Database
 	*/
 	public function databaseFormInsert( \stdClass $values)
 	{
-		
+	
 		$message = $values->message;
 		$name = $values->name;
 		$phone = $values->phone; 
@@ -106,6 +106,8 @@ class Database
 			'phone' => $phone,
 			'message' => $message,
 		]);
+		
+		
 		
 	}
 
