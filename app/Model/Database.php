@@ -59,8 +59,7 @@ class Database
 		$password = $this->passwords->hash($values->password); 
 		$email = $values->email;
 
-		
-
+		//reviews if the credentials are taken
 		if(!$row = $this->database->table('users')->where('username',$username)->fetch() )
 		{
 			$row="";
@@ -71,7 +70,7 @@ class Database
 			'username' => $username,
 			'email' => $email,
 			'password' => $password,
-			'role' => 'uzivatel',
+			'role' => 'user',
 		]);
 		$this->authenticator->authenticate($username, $values->password);
 	
