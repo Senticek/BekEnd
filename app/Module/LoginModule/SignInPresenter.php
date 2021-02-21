@@ -16,11 +16,11 @@ class SignPresenter extends Nette\Application\UI\Presenter
 	protected function createComponentSignInForm(): Form
 	{
 		$form = new Form;
-		$form->addText('username', 'Uživatelské jméno:')
-			->setRequired('Prosím vyplňte své uživatelské jméno.');
+		$form->addText('username', 'Uživatelské jméno:');
+			
 
-		$form->addPassword('password', 'Heslo:')
-			->setRequired('Prosím vyplňte své heslo.');
+		$form->addPassword('password', 'Heslo:');
+			
 
 		$form->addSubmit('send', 'Přihlásit');
 

@@ -24,20 +24,15 @@ class RegPresenter extends Nette\Application\UI\Presenter
 	{
         $values="";
         $form = new form;
-    $form->addText('username', 'Your username:')
-	->setRequired('Enter your username');
+    $form->addText('username', 'Your username:');
+	
 
 
     $form->addPassword('password', 'Choose password:')
-	->setRequired('Choose your password')
 	->addRule($form::MIN_LENGTH, 'The password is too short: it must be at least %d characters', 5);
-
-   $form->addPassword('password2', 'Reenter password:')
-	->setRequired('Reenter your password')
+    $form->addPassword('password2', 'Reenter password:')
 	->addRule($form::EQUAL, 'Passwords do not match', $form['password']);
-
     $form->addEmail('email', 'email')
-	->setRequired('enter email')
 	->addRule($form::EMAIL);
 
     $form->addSubmit('send', 'Registrovat');
@@ -49,21 +44,21 @@ class RegPresenter extends Nette\Application\UI\Presenter
 
     public function signInFormSucceeded(Form $form,\stdClass $values): void
 	{
-        $zprava="";
+        $message="";
         
-		$zprava = $this->vlozit->databaseInsert($values);
+		$message = $this->insert->databaseInsert($values);
         sleep(1);
         
 
-        if($zprava =="email")
+        if($message =="email")
         {
 
             $form->addError("email je jiz pouzivan");
-        }else if($zprava == "Jmeno")
+        }else if($message == "Jmeno")
         {
 
             $form->addError("Jmeno je obsazeno");
-        }else if($zprava == "nic"){
+        }else if($message == "nic"){
        
             $user = $this->getUser();
         $user->authenticator->authenticate($values->username, $values->password);
