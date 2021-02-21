@@ -16,7 +16,7 @@ class PscPresenter extends Nette\Application\UI\Presenter{
     protected function createComponentAddressForm(): Form
     {
         $form = new Form;
-        $form->addTextArea('adresa', 'adresa:')
+        $form->addTextArea('adress', 'adresa:')
             ->setRequired();
         $form->addTextArea('psc', 'psč:')
             ->setRequired();
@@ -41,7 +41,7 @@ class PscPresenter extends Nette\Application\UI\Presenter{
 	}
 
 	$this->flashMessage('Příspěvek byl úspěšně publikován.', 'success');
-	$this->redirect(':Homepage:');
+	$this->redirect(':Admin:');
 }
 
 
@@ -54,7 +54,7 @@ class PscPresenter extends Nette\Application\UI\Presenter{
 	if (!$post) {
 		$this->error('Příspěvek nebyl nalezen');
 	}
-	$this['postForm']->setDefaults($post->toArray());
+	$this['addressForm']->setDefaults($post->toArray());
 }
 
 }

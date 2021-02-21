@@ -39,10 +39,10 @@ class FormPresenter extends Nette\Application\UI\Presenter{
 	$postId = $this->getParameter('postId');
 
 	if ($postId) {
-		$post = $this->database->table('portfolia')->get($postId);
+		$post = $this->database->table('portfolio')->get($postId);
 		$post->update($values);
 	} else {
-		$post = $this->database->table('portfolia')->insert($values);
+		$post = $this->database->table('portfolio')->insert($values);
 	}
 
 	$this->flashMessage('Příspěvek byl úspěšně publikován.', 'success');
@@ -55,11 +55,11 @@ class FormPresenter extends Nette\Application\UI\Presenter{
 	if (!$this->getUser()->isInRole('admin')) {
 		$this->redirect('Sign:in');
 	}
-	$post = $this->database->table('portfolia')->get($postId);
+	$post = $this->database->table('portfolio')->get($postId);
 	if (!$post) {
 		$this->error('Příspěvek nebyl nalezen');
 	}
-	$this['postForm']->setDefaults($post->toArray());
+	$this['portfolioForm']->setDefaults($post->toArray());
 }
 public function actionCreate(): void
 {
@@ -74,7 +74,7 @@ public function actionDelete($id):void
 		$this->redirect('Sign:in');
 	}
 
-      $res = $this->database->table('portfolia')->where('id',$id)->delete();
+      $res = $this->database->table('portfolio')->where('id',$id)->delete();
     
       $this->redirect(':Homepage:');
 	}

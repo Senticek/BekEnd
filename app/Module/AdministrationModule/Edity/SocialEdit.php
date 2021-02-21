@@ -45,7 +45,7 @@ class SocialPresenter extends Nette\Application\UI\Presenter{
 	}
 
 	$this->flashMessage('Příspěvek byl úspěšně publikován.', 'success');
-	$this->redirect(':Homepage:');
+	$this->redirect(':Admin:');
 }
 
 
@@ -58,7 +58,7 @@ class SocialPresenter extends Nette\Application\UI\Presenter{
 	if (!$post) {
 		$this->error('Příspěvek nebyl nalezen');
 	}
-	$this['postForm']->setDefaults($post->toArray());
+	$this['socialsForm']->setDefaults($post->toArray());
 }
 
 }

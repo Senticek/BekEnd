@@ -59,7 +59,7 @@ class LinkPresenter extends Nette\Application\UI\Presenter{
 	if (!$post) {
 		$this->error('Příspěvek nebyl nalezen');
 	}
-	$this['postForm']->setDefaults($post->toArray());
+	$this['linkForm']->setDefaults($post->toArray());
 }
 
 }
