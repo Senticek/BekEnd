@@ -4,6 +4,7 @@ namespace App\Presenters;
 use Nette;
 use Nette\Application\UI\Form;
 use Nette\Database\Explorer;
+use Nette\Utils\Image;
 
 class FormPresenter extends Nette\Application\UI\Presenter{
 
@@ -19,13 +20,16 @@ class FormPresenter extends Nette\Application\UI\Presenter{
     
         $form->addText('headline', 'Titulek:')
         ->setRequired();
-        $form->addText('image', 'obrazek:')
+        $form->addUpload('file', 'obrazek:')
+			->addRule($form::IMAGE, 'Avatar musí být JPEG, PNG, GIF or WebP.')
             ->setRequired();
         $form->addTextArea('text', 'Obsah:')
             ->setRequired();
     
         $form->addSubmit('send', 'Uložit a publikovat');
         $form->onSuccess[] = [$this, 'portfolioFormSucceeded'];
+			
+		
     
         return $form;
     }
@@ -36,8 +40,18 @@ class FormPresenter extends Nette\Application\UI\Presenter{
 		$this->redirect(':Homepage:');
 	
 	}
+
 	$postId = $this->getParameter('postId');
 
+	
+  $values = $form->values;
+  $file = $values['file'];
+  $image = Image::fromFile($file);
+  if($file->isImage() and $file->isOk()) {
+
+    // přesunutí souboru z temp složky někam, kam nahráváš soubory
+   // $file->move('\www\assets\ '. $file);
+  }
 	if ($postId) {
 		$post = $this->database->table('portfolio')->get($postId);
 		$post->update($values);
