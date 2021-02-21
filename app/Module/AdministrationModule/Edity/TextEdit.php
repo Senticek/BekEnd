@@ -25,7 +25,7 @@ class TextPresenter extends Nette\Application\UI\Presenter{
         return $form;
     }
 	
-	public function descriptionFormSucceeded(Form $form, array $values): void
+	public function descriptionsFormSucceeded(Form $form, array $values): void
 	{
 		if (!$this->getUser()->isInRole('admin')) {
 			$this->redirect(':Admin:');
@@ -33,10 +33,10 @@ class TextPresenter extends Nette\Application\UI\Presenter{
 		$postId = $this->getParameter('postId');
 
 		if ($postId) {
-			$post = $this->database->table('popisy')->get($postId);
+			$post = $this->database->table('descriptions')->get($postId);
 			$post->update($values);
 		} else {
-			$post = $this->database->table('popisy')->insert($values);
+			$post = $this->database->table('descriptions')->insert($values);
 		}
 
 		$this->flashMessage('Příspěvek 	byl úspěšně publikován.', 'success');
@@ -50,11 +50,11 @@ class TextPresenter extends Nette\Application\UI\Presenter{
 		if (!$this->getUser()->isInRole('admin')) {
 			$this->redirect('Sign:in');
 		}
-		$post = $this->database->table('popisy')->get($postId);
+		$post = $this->database->table('descriptions')->get($postId);
 		if (!$post) {
 			$this->error('Příspěvek nebyl nalezen');
 		}
-		$this['socialsForm']->setDefaults($post->toArray());
+		$this['descriptionsForm']->setDefaults($post->toArray());
 	}
 
 }
