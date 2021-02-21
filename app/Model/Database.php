@@ -28,11 +28,11 @@ class Database
 	public function getPublicArticles()
 	{
 		
-		return $this->database->table('popisy');
+		return $this->database->table('descriptions');
     }
 	public function getPortfolioItems()
 	{
-		return $this->database->table('portfolia');
+		return $this->database->table('portfolio');
     }
 	public function getAdresses()
 	{
@@ -42,7 +42,7 @@ class Database
 	public function getLinks()
 	{
 		
-		return $this->database->table('odkazy');
+		return $this->database->table('links');
     }
 	public function getSoc()
 	{
@@ -86,6 +86,11 @@ class Database
 		
 	}
 
+	
+	
+	/**
+	*@param \stdClass
+	*/
 	public function databaseFormInsert( \stdClass $values)
 	{
 		
