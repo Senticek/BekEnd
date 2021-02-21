@@ -13,13 +13,11 @@ use App\Model\Database;
 
 class RegPresenter extends Nette\Application\UI\Presenter
 { 
-    private Database $vlozit;
+    private Database $insert;
    
-
-
-    public function __construct(Database $vlozit)
+    public function __construct(Database $insert)
 	{
-		$this->vlozit = $vlozit;
+		$this->insert = $insert;
 	}
 
     protected function createComponentRegInForm(): Form
