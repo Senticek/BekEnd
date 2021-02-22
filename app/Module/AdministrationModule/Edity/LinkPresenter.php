@@ -16,12 +16,10 @@ class LinkPresenter extends Nette\Application\UI\Presenter{
     protected function createComponentLinkForm(): Form
     {
         $form = new Form;
-        $form->addText('text', 'Titulek:')
-        ->setRequired();
+        $form->addText('text', 'Titulek:');
         $form->addText('url', 'odkaz:')
             ->setHtmlType('url');
-        $form->addTextArea('clickableText', 'Obsah:')
-            ->setRequired();
+        $form->addTextArea('clickableText', 'Obsah:');
     
         $form->addSubmit('send', 'Uložit a publikovat');
         $form->onSuccess[] = [$this, 'linkFormSucceeded'];

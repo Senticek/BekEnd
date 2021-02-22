@@ -17,10 +17,8 @@ class PscPresenter extends Nette\Application\UI\Presenter{
     protected function createComponentAddressForm(): Form
     {
         $form = new Form;
-        $form->addTextArea('adress', 'adresa:')
-            ->setRequired();
-        $form->addTextArea('psc', 'psč:')
-            ->setRequired();
+        $form->addTextArea('adress', 'adresa:');
+        $form->addTextArea('psc', 'psč:');
     
         $form->addSubmit('send', 'Uložit a publikovat');
         $form->onSuccess[] = [$this, 'addressFormSucceeded'];

@@ -16,8 +16,7 @@ class TextPresenter extends Nette\Application\UI\Presenter{
     protected function createComponentDescriptionsForm(): Form
     {
         $form = new Form;
-        $form->addTextArea('descriptions', 'Obsah:')
-            ->setRequired();
+        $form->addTextArea('descriptions', 'Obsah:');
     
         $form->addSubmit('send', 'Uložit a publikovat');
         $form->onSuccess[] = [$this, 'descriptionsFormSucceeded'];
@@ -45,7 +44,6 @@ class TextPresenter extends Nette\Application\UI\Presenter{
 
 	public function actionEditText(int $postId): void
 	{
-		
 		if (!$this->getUser()->isInRole('admin')) {
 			$this->redirect('Sign:in');
 		}

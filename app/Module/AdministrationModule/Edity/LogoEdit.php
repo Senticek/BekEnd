@@ -19,8 +19,8 @@ class LogoPresenter extends Nette\Application\UI\Presenter{
     {
         $form = new Form;
         $form->addUpload('image', 'obrazek:')
-			->addRule($form::IMAGE, 'Avatar musí být JPEG, PNG, GIF or WebP.')
-            ->setRequired();
+			->addRule($form::IMAGE, 'Avatar musí být JPEG, PNG, GIF or WebP.');
+            
         
         $form->addSubmit('send', 'Uložit a publikovat');
         $form->onSuccess[] = [$this, 'logoFormSucceeded'];

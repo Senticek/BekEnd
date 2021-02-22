@@ -18,13 +18,10 @@ class FormPresenter extends Nette\Application\UI\Presenter{
     protected function createComponentPortfolioForm(): Form
     {
         $form = new Form;
-        $form->addText('headline', 'Titulek:')
-        ->setRequired();
+        $form->addText('headline', 'Titulek:');
         $form->addUpload('image', 'obrazek:')
-			->addRule($form::IMAGE, 'Avatar musí být JPEG, PNG, GIF or WebP.')
-            ->setRequired();
-        $form->addTextArea('text', 'Obsah:')
-            ->setRequired();
+			->addRule($form::IMAGE, 'Avatar musí být JPEG, PNG, GIF or WebP.');
+        $form->addTextArea('text', 'Obsah:');
     
         $form->addSubmit('send', 'Uložit a publikovat');
         $form->onSuccess[] = [$this, 'portfolioFormSucceeded'];

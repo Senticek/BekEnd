@@ -18,10 +18,9 @@ class SocialPresenter extends Nette\Application\UI\Presenter{
     {
         $form = new Form;
     
-        $form->addText('title', 'Nazev:')
-        ->setRequired();
+        $form->addText('title', 'Nazev:');
         $form->addText('url', 'url:')
-            ->setRequired();
+			->setHtmlType('url');
        
     
         $form->addSubmit('send', 'Uložit a publikovat');
