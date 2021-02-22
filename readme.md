@@ -3,7 +3,7 @@ Password for Admin: tester
 
 after logging to admin account, in menu, button for administration will appear, administration is only accessible for user with admin identity, all editable items can be found there.Portfolio add items moves image to img/potfolio location and logo edit will move it to img and can be used after their assignment.
 urls are not fixed therefore urls in edit are necessary to be written with http or https.In latte they are not fixed on one or another protocol,it depends on what administrator saved into database.
-
+After research i found out that nette hash can be used for multiple users with same password as it adds salt automatically to hash.
 
 Sql database export:
 
