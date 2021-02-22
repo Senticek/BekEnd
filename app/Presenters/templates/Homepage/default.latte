@@ -164,7 +164,7 @@
                 <div>
                      <h4 class="text-uppercase mb-4">Sociální sítě</h4>
                     <a n:foreach="$socials as $soc">
-                     <a class="btn btn-outline-light btn-social mx-1" href="https://{$soc->url}">
+                     <a class="btn btn-outline-light btn-social mx-1" href="{$soc->url}">
                            <i class="fab fa-fw fa-{$soc->title}"></i></a>
                      </a>
                 </div>
@@ -173,7 +173,7 @@
                     <h4 class="text-uppercase mb-4">Odkazy</h4>
                      <div n:foreach="$links as $link" class="text-uppercase mb-4">
                        {$link->text}
-                        <a href="https://{$link->url}">{$link->clickableText}
+                        <a href="{$link->url}">{$link->clickableText}
                         </a>
                     </div>
                 </div>
