@@ -28,7 +28,6 @@ class SignPresenter extends Nette\Application\UI\Presenter
 
 	public function signInFormSucceeded(Form $form, \stdClass $values): void
 	{
-		
 		try {
            
         $user = $this->getUser();
@@ -50,6 +49,5 @@ class SignPresenter extends Nette\Application\UI\Presenter
 		$this->flashMessage('Odhlášení bylo úspěšné.');
 		$this->redirect('Homepage:');
 	}
-
 }
 ?>

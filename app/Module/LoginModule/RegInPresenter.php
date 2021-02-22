@@ -36,7 +36,6 @@ class RegPresenter extends Nette\Application\UI\Presenter
         $form->addSubmit('send', 'Registrovat');
         $form->onSuccess[] = [$this, 'signInFormSucceeded'];
 
-
     return $form;
     }
 
@@ -59,11 +58,7 @@ class RegPresenter extends Nette\Application\UI\Presenter
 
          $this->redirect('Homepage:');
             
-
         }
-        
-      
 	}
-
 }
 ?>
